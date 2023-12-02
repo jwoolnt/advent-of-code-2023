@@ -1,18 +1,14 @@
-def day1(input):
-	sum = 0
+from re import findall as fa
+
+def day1(input: str) -> None:
+	sum: int = 0
 
 	for line in input.splitlines():
-		first = None
-		second = None
-		for c in line:
-			if c in "123456789":
-				if first is None:
-					first = c
-				else:
-					second = c
-		sum += int(first + second if second is not None else first + first)
+		num_strings: list[str] = fa("[0-9]", line)
+		sum += int(num_strings[0] + num_strings[-1])
 
 	print(sum)
+
 
 day1("""1abc2
 pqr3stu8vwx
