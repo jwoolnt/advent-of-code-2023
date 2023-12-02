@@ -1,8 +1,3 @@
-from re import findall as fa
-
-
-search = "[0-9]|one|two|three|four|five|six|seven|eight|nine"
-
 word_to_num_string = {
 	"one":"1",
 	"two":"2",
@@ -15,18 +10,24 @@ word_to_num_string = {
 	"nine":"9"
 }
 
+search = list(word_to_num_string.keys())
+search.extend(word_to_num_string.values())
 
-def search_strings_to_int(str1: str, str2: str):
-	str1 = str1 if len(str1) == 1 else word_to_num_string[str1]
-	str2 = str2 if len(str2) == 1 else word_to_num_string[str2]
-	return int(str1 + str2)
 
 def day1(input: str) -> None:
 	sum: int = 0
 
 	for line in input.splitlines():
-		search_strings: list[str] = fa(search, line)
-		sum += search_strings_to_int(search_strings[0], search_strings[-1])
+		first_dict = {line.find(item): item for item in search if line.find(item) != -1}
+		last_dict = {line.rfind(item): item for item in search if line.rfind(item) != -1}
+
+		first = first_dict[min(first_dict.keys())]
+		last = last_dict[max(last_dict.keys())]
+
+		first = first if first in word_to_num_string.values() else word_to_num_string[first]
+		last = last if last in word_to_num_string.values() else word_to_num_string[last]
+
+		sum += int(first + last)
 
 	print(sum)
 
