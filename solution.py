@@ -44,6 +44,7 @@ class Solution:
 				with open(entry.path) as file:
 					input_type = entry.name[:-4] if entry.name.endswith(".txt") else entry.name
 					self._inputs[input_type] = file.read()
+
 		return self._inputs
 
 
