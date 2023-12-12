@@ -1,5 +1,5 @@
 def part1(input: str):
-	print(input)
+	return input
 
 def part2(input: str):
-	print(reversed(input))
+	return input[::-1]
