@@ -3,6 +3,11 @@ from typing import Callable
 
 
 class Solution:
+	def fire(year: int, day: int):
+		"Runs the solution for a given year and day."
+		Solution(year, day).run()
+
+
 	def __init__(self, year: int, day: int) -> None:
 		self.year: int = year
 		self.day: int = day
@@ -41,7 +46,7 @@ class Solution:
 
 
 	def run(self) -> None:
-		print(f"Running Solution for Year {self.year} Day {self.day}...", "\n")
+		print(f"\nRunning Solution for Year {self.year} Day {self.day}...\n\n")
 
 		mod = self.get_module()
 		inputs = self.get_inputs()
@@ -50,12 +55,10 @@ class Solution:
 			print(part.capitalize() + ":")
 
 			part_func: Callable[[str], any] = getattr(mod, part)
-			part_run: Callable[[str], None] = lambda input_name: print(f"{input_name}.txt -> {part_func(inputs[input_name])}")
+			part_run: Callable[[str], None] = lambda input_name: print(f"\t{input_name}.txt -> {part_func(inputs[input_name])}\n")
 
 			if part in inputs:
 				part_run(part)
 			part_run("main")
 
-			print("\b")
-
-		print("Complete!")
+		print("\nComplete!")
