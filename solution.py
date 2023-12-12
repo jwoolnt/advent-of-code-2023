@@ -32,7 +32,7 @@ class Solution:
 		from os.path import join
 		from os import getcwd
 
-		return join(getcwd(), f"year{self.year}", f"day{self.day}")
+		return join(getcwd(), f"year{self.year}", "inputs", f"day{self.day}")
 
 	def get_inputs(self) -> dict[str, str]:
 		if self._inputs is None:
@@ -41,24 +41,26 @@ class Solution:
 			self._inputs = {}
 			for entry in scandir(self.get_input_folder_path()):
 				with open(entry.path) as file:
-					self._inputs[entry.name[:-4]] = file.read()
+					input_type = entry.name[:-4] if entry.name.endswith(".txt") else entry.name
+					self._inputs[input_type] = file.read()
 		return self._inputs
 
 
 	def run(self) -> None:
 		print(f"\nRunning Solution for Year {self.year} Day {self.day}...\n\n")
 
-		mod = self.get_module()
-		inputs = self.get_inputs()
+		mod: ModuleType = self.get_module()
+		inputs: dict[str, str] = self.get_inputs()
 
 		for part in self.get_parts():
-			print(part.capitalize() + ":")
-
+			part_num: str = part[4:]
 			part_func: Callable[[str], any] = getattr(mod, part)
-			part_run: Callable[[str], None] = lambda input_name: print(f"\t{input_name}.txt -> {part_func(inputs[input_name])}\n")
+			part_run: Callable[[str], None] = lambda input_type: print(f"\t{input_type} -> {part_func(inputs[input_type])}\n")
 
-			if part in inputs:
-				part_run(part)
-			part_run("main")
+			print(f"Part {part_num}:")
+
+			for input_type in [f"test{part_num}", part, "test", "main"]:
+				if input_type in inputs:
+					part_run(input_type)
 
 		print("\nComplete!")
