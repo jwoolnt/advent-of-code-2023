@@ -5,6 +5,7 @@ from typing import Callable
 class Solution:
 	def fire(year: int, day: int):
 		"Runs the solution for a given year and day."
+
 		Solution(year, day).run()
 
 
