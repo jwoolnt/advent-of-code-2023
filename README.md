@@ -1,7 +1,7 @@
 
 # advent-of-code
 
-This repository houses all of my solutions for the yearly Advent of Code (it's only 2023 right now, but I plan to do some of the other ones soon)!
+This repository houses all of my solutions for the annual Advent of Code (it's only 2023 right now, but I plan to do some of the other ones soon)!
 
 ## What is Advent of Code?
 
