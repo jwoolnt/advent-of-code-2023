@@ -51,7 +51,7 @@ def setup2(input: str) -> tuple[list[list[int]], list[dict[range, str]]]:
 
 	return (stars, numbers)
 
-def get_nearby_numbers(search_line: int, searc_col: int, numbers: list[dict[range, str]]):
+def get_nearby_numbers(search_line: int, searc_col: int, numbers: list[dict[range, str]]) -> list[int]:
 	nearby_numbers: list[int] = []
 
 	for line in search_range(search_line):
@@ -65,7 +65,7 @@ def get_nearby_numbers(search_line: int, searc_col: int, numbers: list[dict[rang
 	return nearby_numbers
 
 
-def part2(input: str):
+def part2(input: str) -> int:
 	(input_stars, input_numbers) = setup2(input)
 	sum: int = 0
 
