@@ -10,7 +10,6 @@ def is_symbol_nearby(search_line: int, search_col: int, lines: list[str]) -> boo
 	return False
 
 
-
 def part1(input: str) -> int:
 	lines: list[str] = input.splitlines()
 	line_range = range(len(lines))
@@ -32,5 +31,7 @@ def part1(input: str) -> int:
 					sum += int(num_string)
 					is_part_num = False
 				num_string = ""
+
+		if num_string != "" and is_part_num: sum += int(num_string)
 
 	return sum
