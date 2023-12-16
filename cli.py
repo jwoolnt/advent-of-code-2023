@@ -1,5 +1,5 @@
 from fire import Fire
-from solution import Solution
+from advent import Solution
 
 
 if __name__ == "__main__":
