@@ -1,3 +1,9 @@
+cube_amounts = {
+	"red": 12,
+	"green": 13,
+	"blue": 14
+}
+
 def setup(input: str) -> dict[str, dict[str, int]]:
 	data: dict[str, dict[str, int]] = {}
 
@@ -19,12 +25,6 @@ def setup(input: str) -> dict[str, dict[str, int]]:
 					data[game_num][color] = num
 
 	return data
-
-cube_amounts = {
-	"red": 12,
-	"green": 13,
-	"blue": 14
-}
 
 
 def part1(input: str):
