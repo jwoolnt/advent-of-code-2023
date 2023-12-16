@@ -11,16 +11,25 @@ def setup(input: str) -> tuple[list[int], list[int]]:
 	return (win_nums, our_nums)
 
 
-def part1(input: str):
+def part1(input: str) -> int:
 	(win_nums, our_nums) = setup(input)
-	sum: int = 0
+	point_sum: int = 0
 
 	for card_num in range(len(win_nums)):
-		card_wins: int = 0
+		card_wins: int = sum([num in win_nums[card_num] for num in our_nums[card_num]])
+		point_sum += 2 ** (card_wins - 1) if card_wins > 0 else 0
 
-		for num in our_nums[card_num]:
-			card_wins += num in win_nums[card_num]
+	return point_sum
 
-		sum += 2 ** (card_wins - 1) if card_wins > 0 else 0
 
-	return sum
+def part2(input: str) -> int:
+	(win_nums, our_nums) = setup(input)
+	cards: list[int] = [1] * len(win_nums)
+
+	for card_num in range(len(cards)):
+		card_wins: int = sum([num in win_nums[card_num] for num in our_nums[card_num]])
+
+		for i in range(card_num + 1, card_num + card_wins + 1):
+			cards[i] += cards[card_num]
+
+	return sum(cards)
