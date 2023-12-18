@@ -14,11 +14,11 @@ latest_day: Callable[[int], int] = lambda year: days[year][-1]
 
 
 class Solution:
-	def fire(day: int = latest_day(latest_year), year: int = latest_year):
+	def fire(day: int = latest_day(latest_year), year: int = latest_year, **kwargs):
 		"Runs the solution for a given day and year."
 		if year not in years: raise IndexError(f"Given invalid argument for year '{year}'")
 		if day not in days[year]: raise IndexError(f"Given invalid argument for day '{day}'")
-		Solution(day, year).run()
+		Solution(day, year).run(**kwargs)
 
 
 	def __init__(self, day: int, year: int) -> None:
@@ -60,21 +60,25 @@ class Solution:
 		return self._inputs
 
 
-	def run(self) -> None:
+	def run(self, *, part: int = None, input: str = None) -> None:
 		print(f"\nyear{self.year}/day{self.day}.py:\n\n")
 
 		mod: ModuleType = self.get_module()
-		inputs: dict[str, str] = self.get_inputs()
+		solution_inputs: dict[str, str] = self.get_inputs()
+		if input is not None: solution_inputs["input"] = input
 
-		for part in self.get_parts():
-			part_num: str = part[4:]
-			part_func: Callable[[str], any] = getattr(mod, part)
-			part_run: Callable[[str], None] = lambda input_type: print(f"\t{input_type} -> {part_func(inputs[input_type])}\n")
+		for part_str in self.get_parts():
+			part_num: str = part_str[4:]
+			if part is not None and part != int(part_num): continue
+			part_func: Callable[[str], any] = getattr(mod, part_str)
+			part_run: Callable[[str], None] = lambda input_type: print(
+				f"\t{input_type} -> {part_func(solution_inputs[input_type])}\n"
+			)
 
 			print(f"Part {part_num}:")
 
-			for input_type in [f"test{part_num}", part, "test", "main"]:
-				if input_type in inputs:
-					part_run(input_type)
+			for allowed_input in ["input", f"test{part_num}", part_str, "test", "main"]:
+				if allowed_input in solution_inputs:
+					part_run(allowed_input)
 
 		print("\nComplete!")
