@@ -67,18 +67,21 @@ class Solution:
 		solution_inputs: dict[str, str] = self.get_inputs()
 		if input is not None: solution_inputs["input"] = input
 
-		for part_str in self.get_parts():
-			part_num: str = part_str[4:]
+		for part_name in self.get_parts():
+			part_num: str = part_name[4:]
 			if part is not None and part != int(part_num): continue
-			part_func: Callable[[str], any] = getattr(mod, part_str)
+			part_func: Callable[[str], any] = getattr(mod, part_name)
 			part_run: Callable[[str], None] = lambda input_type: print(
 				f"\t{input_type} -> {part_func(solution_inputs[input_type])}\n"
 			)
 
 			print(f"Part {part_num}:")
 
-			for allowed_input in ["input", f"test{part_num}", part_str, "test", "main"]:
-				if allowed_input in solution_inputs:
-					part_run(allowed_input)
+			if input is None:
+				for allowed_input in [f"test{part_num}", part_name, "test", "main"]:
+					if allowed_input in solution_inputs:
+						part_run(allowed_input)
+			else:
+				part_run("input")
 
 		print("\nComplete!")
