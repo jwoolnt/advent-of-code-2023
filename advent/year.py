@@ -1,7 +1,10 @@
+from typing import Final
+
+
+TEST_YEAR_ID: Final = "TEST"
+
+
 class Year:
-	TEST_YEAR_ID = "TEST"
-
-
 	def __init__(self, number: int) -> None:
 		from os import scandir
 		from .day import Day
@@ -16,12 +19,12 @@ class Year:
 			if day_id.isdigit(): self.days.append(Day(int(day_id), self))
 
 	@property
-	def year_str(self) -> str:
-		return f"year{self.number}"
+	def module_name(self) -> str:
+		return f"year{self.number if self.number != 0 else TEST_YEAR_ID}"
 
 	@property
 	def rel_path(self) -> str:
-		return str(self.year_str) if self.number != 0 else Year.TEST_YEAR_ID
+		return self.module_name
 
 	@property
 	def abs_path(self) -> str:
