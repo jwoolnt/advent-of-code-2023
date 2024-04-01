@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "advent-of-code"
+name = "advent-of-code-2023"
 version = "0.0.0"
 description = "This package houses all of my solutions for the 2023 Advent of Code!"
 authors = ["Jayden Wool <52765228+jwoolnt@users.noreply.github.com>"]
