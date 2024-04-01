@@ -1,5 +1,5 @@
 
-# advent-of-code
+# advent-of-code-2023
 
 This repository/package houses all my solutions for the 2023 Advent of Code!
 
