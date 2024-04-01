@@ -1,7 +1,7 @@
 
 # advent-of-code
 
-This repository/package houses all my solutions for the annual Advent of Code!
+This repository/package houses all my solutions for the 2023 Advent of Code!
 
 ## What is Advent of Code (AOC)?
 
